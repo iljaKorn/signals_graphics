@@ -1,7 +1,6 @@
 import numpy as np
-from numpy import array, arange, abs as np_abs
-from numpy.fft import rfft, rfftfreq
-from math import sin, pi
+from numpy import abs as np_abs
+from numpy.fft import fft, fftfreq
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
@@ -16,13 +15,28 @@ def get_y_array(freq, t):
     return sin_sig
 
 
-def spectr_sig(N, sin_sig):
-    spectr_sin = rfft(sin_sig)
-    # вычисляем дискретное действительное rfft  преобразование Фурье
-    plt.plot(rfftfreq(N), np_abs(spectr_sin) / N)  # график спектра
-    plt.xlabel('Частота, Гц')
-    plt.ylabel('Амплитуда  сигнала')
-    plt.title('Спектр синусоидального сигнала')
+def spectrum_sig(sin_sig1, sin_sig2, sin_sig3, sin_sig4):
+    xf = fftfreq(SAMPLE_RATE * DURATION, 1 / SAMPLE_RATE)
+
+    yf1 = fft(sin_sig1)
+    yf2 = fft(sin_sig2)
+    yf3 = fft(sin_sig3)
+    yf4 = fft(sin_sig4)
+
+    figure, axis = plt.subplots(2, 2)
+
+    axis[0, 0].plot(xf, yf1)
+    axis[0, 0].set_title("Signal with frequency 1")
+
+    axis[1, 0].plot(xf, yf2)
+    axis[1, 0].set_title("Signal with frequency 2")
+
+    axis[0, 1].plot(xf, yf3)
+    axis[0, 1].set_title("Signal with frequency 4")
+
+    axis[1, 1].plot(xf, yf4)
+    axis[1, 1].set_title("Signal with frequency 8")
+
     plt.grid(True)
     plt.show()
 
@@ -51,6 +65,8 @@ def graphic_sig():
 
     plt.grid(True)
     plt.show()
+
+    spectrum_sig(sig_with_w1, sig_with_w2, sig_with_w3, sig_with_w4)
 
 
 def main():
