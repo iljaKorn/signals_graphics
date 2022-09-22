@@ -1,6 +1,6 @@
+import numpy
 import numpy as np
-from numpy import abs as np_abs
-from numpy.fft import fft, fftfreq
+from scipy.fft import rfft, rfftfreq
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
@@ -16,25 +16,25 @@ def get_y_array(freq, t):
 
 
 def spectrum_sig(sin_sig1, sin_sig2, sin_sig3, sin_sig4):
-    xf = fftfreq(SAMPLE_RATE * DURATION, 1 / SAMPLE_RATE)
+    yf1 = rfft(sin_sig1)  #можно использовать fft, чтобы было с симметрией
+    yf2 = rfft(sin_sig2)
+    yf3 = rfft(sin_sig3)
+    yf4 = rfft(sin_sig4)
 
-    yf1 = fft(sin_sig1)
-    yf2 = fft(sin_sig2)
-    yf3 = fft(sin_sig3)
-    yf4 = fft(sin_sig4)
+    xf = rfftfreq(SAMPLE_RATE * DURATION, 1 / SAMPLE_RATE)
 
     figure, axis = plt.subplots(2, 2)
 
-    axis[0, 0].plot(xf, yf1)
+    axis[0, 0].plot(xf, np.abs(yf1))
     axis[0, 0].set_title("Signal with frequency 1")
 
-    axis[1, 0].plot(xf, yf2)
+    axis[1, 0].plot(xf, np.abs(yf2))
     axis[1, 0].set_title("Signal with frequency 2")
 
-    axis[0, 1].plot(xf, yf3)
+    axis[0, 1].plot(xf, np.abs(yf3))
     axis[0, 1].set_title("Signal with frequency 4")
 
-    axis[1, 1].plot(xf, yf4)
+    axis[1, 1].plot(xf, np.abs(yf4))
     axis[1, 1].set_title("Signal with frequency 8")
 
     plt.grid(True)
