@@ -4,8 +4,8 @@ from scipy.fft import rfft, rfftfreq
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-SAMPLE_RATE = 44100  # Гц
-DURATION = 1 # Секунды
+SAMPLE_RATE = 200  # Гц
+DURATION = 5  # Секунды
 
 
 def get_y_array(freq, t):
@@ -16,7 +16,7 @@ def get_y_array(freq, t):
 
 
 def spectrum_sig(sin_sig1, sin_sig2, sin_sig3, sin_sig4):
-    yf1 = rfft(sin_sig1)  #можно использовать fft, чтобы было с симметрией
+    yf1 = rfft(sin_sig1)  # можно использовать fft, чтобы было с симметрией
     yf2 = rfft(sin_sig2)
     yf3 = rfft(sin_sig3)
     yf4 = rfft(sin_sig4)
@@ -27,17 +27,20 @@ def spectrum_sig(sin_sig1, sin_sig2, sin_sig3, sin_sig4):
 
     axis[0, 0].plot(xf, np.abs(yf1))
     axis[0, 0].set_title("Signal with frequency 1")
+    axis[0, 0].grid()
 
     axis[1, 0].plot(xf, np.abs(yf2))
     axis[1, 0].set_title("Signal with frequency 2")
+    axis[1, 0].grid()
 
     axis[0, 1].plot(xf, np.abs(yf3))
     axis[0, 1].set_title("Signal with frequency 4")
+    axis[0, 1].grid()
 
     axis[1, 1].plot(xf, np.abs(yf4))
     axis[1, 1].set_title("Signal with frequency 8")
+    axis[1, 1].grid()
 
-    plt.grid(True)
     plt.show()
 
 
@@ -53,26 +56,26 @@ def graphic_sig():
 
     axis[0, 0].plot(t, sig_with_w1)
     axis[0, 0].set_title("Signal with frequency 1")
+    axis[0, 0].grid()
 
     axis[1, 0].plot(t, sig_with_w2)
     axis[1, 0].set_title("Signal with frequency 2")
+    axis[1, 0].grid()
 
     axis[0, 1].plot(t, sig_with_w3)
     axis[0, 1].set_title("Signal with frequency 4")
+    axis[0, 1].grid()
 
     axis[1, 1].plot(t, sig_with_w4)
     axis[1, 1].set_title("Signal with frequency 8")
+    axis[1, 1].grid()
 
-    plt.grid(True)
     plt.show()
 
     spectrum_sig(sig_with_w1, sig_with_w2, sig_with_w3, sig_with_w4)
 
 
 def main():
-    mpl.rcParams['font.family'] = 'fantasy'
-    mpl.rcParams['font.fantasy'] = 'Comic Sans MS, Arial'
-
     graphic_sig()
 
 
